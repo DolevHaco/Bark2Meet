@@ -1,0 +1,339 @@
+/*
+dark purple #4B0B9D
+light purple #F8EAFF
+gradient #FEFFFA #F6E6E5
+dark blue #073170
+: linear-gradient(135deg, #A1B0FF, #FFF
+); body
+
+bg gradient linear-gradient(#FEFFFA, #F6E6E5)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Montserrat', sans-serif;
+
+}
+
+body {
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	background-image: url("siteBg4.svg");
+	background-size: cover;
+	margin: 0 0 55px 0;
+	overflow: hidden;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+	padding: .4rem;
+	color: #073170;
+}
+
+li i {
+	margin: 0 5px;
+}
+li span {
+	margin: 20px 0;
+	font-weight: 600;
+	color: #073170;
+}
+
+li img {
+	width:  54px;
+	height: 52px;
+}
+
+.back_button {
+	float: left;
+	background: transparent;
+	border: none;
+}
+
+.event-form-box {
+	display: block;
+	max-width: 700px;
+	width: 100%;
+	align-items: center;
+	background: linear-gradient(#FEFFFA, #F6E6E5);
+	padding: 25px 30px;
+	overflow: hidden;
+}
+
+
+.event-form-box .title {
+	font-size: 25px;
+	font-weight: 900;
+	position: relative;
+	margin-bottom: 20px;
+	color: #073170;
+}
+
+.event-form-box .title::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 3px;
+	width: 30px;
+	background: #4B0B9D;
+}
+
+.event-form-box .smallpaw {
+	margin: 0 10px 0 0px;
+}
+
+.event-form-box {
+	max-width: 600px;
+	height: 95%;
+	border: 1px solid #ced4da;
+	background-image: linear-gradient(#FEFFFA, #F6E6E5);
+	padding: 10px 10px;
+}
+
+.event-form {
+	margin-bottom: 10px;
+}
+
+
+/*from old invite page*/
+
+
+.invite-window {
+display: flex;
+justify-content: center;
+}
+
+button {
+background: 0;
+border-width: 0px;
+}
+
+.div.col-sm-10 {
+padding: 0;
+}
+
+.row {
+margin-top: 7px
+}
+
+.col {
+align: center;
+}
+
+.back_button {
+alt: Back;
+width: 17.5px;
+height: 18.08px;
+vertical-align: middle;
+}
+
+.pull-right {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 10px;
+    margin: 5px;
+}
+div.pull-right{
+    border-radius: 15px;
+    font-size: 13px;
+    margin-right: 8px;
+}
+h1 {
+    font-size: 18px;
+}
+
+.media-left.image-placeholder {
+	float: left;
+    width: 40px;
+    height: 40px;
+    Vertical-align: center;
+    line-height: 55px;
+    margin-right: 10px;
+	display: flex;
+	background-color: #eee;
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	align-items: center;
+}
+
+.pull-right {
+	float: right;
+}
+
+div.friend-card {
+    height: 70px;
+    border: 2px solid #0B469D;
+    border-radius: 7px;
+    background-color: #F6F8FF;
+    margin: 5px;
+    type: button;
+    align-items: center;
+}
+
+.friend-heading.name {
+    font-size: 18px;
+    Align: Left;
+    margin: 15px 0 0 50px;
+}
+
+.friends-list {
+    overflow: scroll;
+}
+
+.write-comment {
+    alt: Write a message;
+    color: #073170;
+    width: 80px;
+    height: 40px;
+    border-radius: 17px;
+    margin-left: 10px;
+    background: linear-gradient(180deg, #A1B0FF 0%, #FBCBFF 100%);
+    border: 3px solid #4B0B9D;
+    box-sizing: border-box;
+    box-shadow: 0px 4.92px 15px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(24.6059px);
+}
+
+.form .form-control.form-input {
+    position: relative;
+    border-radius: 5px;
+    border: 3px solid #0B469D;
+
+}
+
+.form .form-control.form-input:focus, .form .form-control.form-input:after {
+		box-shadow: 0px 4.92px 15px rgba(0, 0, 0, 0.25);
+		border-color: #4B0B9D;
+    }
+
+/*css for friends list*/
+
+.row > .col-lg-12 {
+	padding: 0;
+	margin: 0;
+	align-items: flex-start;
+}
+
+.sms-send-page .pull-left p {
+    color: #5b6773;
+    margin: 0;
+}
+.sms-send-page .pull-left small {
+    color: #637282;
+    font-size: 13px;
+}
+.sms-send-page .pull-left {
+    line-height: 18px;
+}
+.sms-send-page .list-group-item {
+    padding: 10px;
+    margin-bottom: 0.3em;
+    background-color: #F6F8FF;
+    border: 2px solid #073170;
+    border-radius: 5px;
+    position: relative;
+}
+
+.list-group-item p strong {
+    color: #073170;
+}
+
+.sms-send-page .list-group {
+    box-shadow: 0 0 11px #eceeef;
+    margin: 8px 0.8em;
+    padding-bottom: 50%;
+}
+
+/*Add Friend buttons (as checkboxes)*/
+
+.icon-box {
+	width: 50px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid #4B0B9D;
+	border-radius: 25px;
+	background: none;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.5s;
+	font-family: FontAwesome;
+	font-size: 18px;
+}
+
+input[type="checkbox"] {
+	width: 50px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	border-radius: 25px;
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+/*input[type="checkbox"]:focus ~ .icon-box{
+        outline:0;
+    }
+
+input[type="checkbox"]:after ~ .icon-box{
+	-webkit-appearance:  none;
+	content: '\f234';
+	color: #4B0B9D;
+}*/
+
+input[type="checkbox"]:checked ~ .icon-box {
+	-webkit-appearance:  none;
+	float: right;
+	background: linear-gradient(180deg, #A1B0FF 0%, #FBCBFF 100%);
+}
+/*
+input[type="checkbox"]:checked:after ~ .icon-box{
+	-webkit-appearance:  none;
+	background: none;
+
+}*/
+
+.sms-send-page .pull-left, .sms-send-page .pull-right{
+  padding: 0px;
+}
+
+.participants {
+	height: 55vh;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+
+.create_album {
+	text-decoration: none;
+	color: white;
+	background-color: #A1B0FF;
+	padding: 5px 3px;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 7px;
+	box-shadow: 0 2px 5px rgba(7, 49, 112, 0.5);
+}
+
+.create_album:hover, .create_album:active, .create_album:focus {
+    text-decoration:none;
+    color: white;
+    background-color: rgba(113, 136, 255, 1);
+}

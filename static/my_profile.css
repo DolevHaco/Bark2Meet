@@ -1,0 +1,743 @@
+/*
+dark purple #4B0B9D
+light purple #F8EAFF
+gradient #FEFFFA #F6E6E5
+dark blue #073170
+: linear-gradient(135deg, #A1B0FF, #FFF
+); body
+
+bg gradient linear-gradient(#FEFFFA, #F6E6E5)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Montserrat', sans-serif;
+}
+
+body {
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	background-image: url("siteBg4.svg");
+	background-size: cover;
+	/*margin: 0 0 55px 0;*/
+	overflow: hidden;
+}
+/*light container*/
+.event-form-box {
+	display: block;
+	max-width: 700px;
+	width: 100%;
+	min-height: 100vh;
+	background: linear-gradient(#FEFFFA, #F6E6E5);
+	padding: 25px 30px;
+	overflow: hidden;
+}
+
+
+.event-form-box .title {
+	font-size: 25px;
+	font-weight: 900;
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.event-form-box .title::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 3px;
+	width: 30px;
+	background: #4B0B9D;
+}
+
+.event-form-box .smallpaw {
+	margin: 0 10px 0 0px;
+}
+
+.event-form-box {
+	max-width: 600px;
+	height: 95%;
+	border: 1px solid #ced4da;
+	background-image: linear-gradient(#FEFFFA, #F6E6E5);
+	padding: 10px 10px;
+}
+
+.back_button {
+	float: left;
+	background: transparent;
+	border: none;
+	margin: 0 0 5px 5px;
+}
+
+/*Profile pics & names*/
+
+.profile-titles {
+    text-align: center;
+}
+
+.owner-pic {
+    position: relative;
+    left: 15px;
+    z-index: 2;
+    width: 106px;
+    height: 106px;
+    border-radius: 50%;
+    border: 4px solid #073170;
+    box-shadow: 0 0 8px #4B0B9D;
+    }
+
+.dog-pic {
+    position: relative;
+    right: 15px;
+    z-index: 1;
+    width: 106px;
+    height: 106px;
+    border-radius: 50%;
+    border: 4px solid #073170;
+    box-shadow: 0 0 8px #4B0B9D;
+}
+.names {
+    ont-family: "Montserrat", sans-serif;
+    font-style: bold;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 150%;
+    text-align: center;
+    color: #073170;
+    padding-top: 10px;
+
+}
+
+/*infos*/
+.info-box {
+padding: 10px;
+margin: 0;
+}
+
+.info-owner {
+	border-right: 3px solid #4B0B9D; 
+	padding-right: 10px;
+	min-width: 150px;
+	text-align: right;
+}
+
+.info-dog {
+	padding-left: 10px;
+	min-width: 150px;
+}
+
+/*css for friends list*/
+
+.row > .col-lg-12 {
+	padding: 0;
+	margin: 0;
+	align-items: flex-start;
+}
+
+.sms-send-page .pull-left p {
+    color: #5b6773;
+    margin: 0;
+}
+.sms-send-page .pull-left small {
+    color: #637282;
+    font-size: 13px;
+}
+.sms-send-page .pull-left {
+    line-height: 18px;
+}
+.sms-send-page .list-group-item {
+    padding: 10px;
+    margin-bottom: 0.3em;
+    background-color: #F6F8FF;
+    border: 2px solid #073170;
+    border-radius: 5px;
+    position: relative;
+}
+
+.sms-send-page .list-group {
+    box-shadow: 0 0 11px #eceeef;
+    margin: 8px 0.8em;
+}
+
+input[type="checkbox"] {
+	width: 80px;
+	height: 40px;
+	-webkit-appearance:  none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 25px;
+	background: none;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.5s;
+	margin-top: 0.1em;
+}
+
+input[type="checkbox"].green {
+    border: 2px solid #5C6C2F;
+    float: right;
+}
+
+input[type="checkbox"].orange {
+    border: 2px solid #986503;
+    float: right;
+}
+
+input[type="checkbox"]:focus{
+        outline:0;
+    }
+
+input[type="checkbox"].green:after {
+	-webkit-appearance:  none;
+	content: 'Join  ' url('../../static/paw_green.png');
+	text-align: center;
+    vertical-align: middle;
+	color: #5C6C2F;
+	float: right;
+}
+
+input[type="checkbox"].orange:after {
+	-webkit-appearance:  none;
+	content: 'Join  ' url('../../static/paw_orange.png');
+	text-align: center;
+    vertical-align: middle;
+	color: #986503;
+	float: right;
+}
+
+input[type="checkbox"].green:checked {
+	-webkit-appearance:  none;
+	float: right;
+	background-color: #B6E13D;
+}
+
+input[type="checkbox"].orange:checked {
+	-webkit-appearance:  none;
+	float: right;
+	background-color: #FFAD0E;
+}
+
+input[type="checkbox"]:checked:after {
+	-webkit-appearance:  none;
+	background: none;
+	content: 'Joined';
+	text-align: center;
+    vertical-align: middle;
+}
+
+.sms-send-page .pull-left, .sms-send-page .pull-right{
+  padding: 0px;
+}
+
+/* nav bar */
+
+.nav__link_middle {
+	background-color: #F8EAFF;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex-grow: 1;
+	min-width: 50px;
+	overflow: hidden;
+	white-space: nowrap;
+	font-size: 13px;
+	color: #073170;
+	text-decoration: none;
+	-webkit-tap-highlight-color:  transparent;
+	transition: background-color 0.1s ease-in-out;
+	border: none;
+}
+
+/*participants little pics*/
+div.profile-pics {
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+}
+
+
+.head {
+    position:absolute;
+    float: left;
+    z-index: 3;
+    width: 30px;
+    height: 30px;
+    border-radius: 90px;
+    background-color: #ccc;
+}
+.mid {
+    position:absolute;
+    float: left;
+    z-index: 1;
+    left: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 90px;
+    background-color: #ccc;
+}
+
+.tail {
+    position:absolute;
+    float: left;
+    z-index: 2;
+    left: 52px;
+    width: 30px;
+    height: 30px;
+    border-radius: 90px;
+    background-color: #ccc;
+}
+
+.middle_nav {
+	position: relative;
+}
+
+/*Add Friend buttons (as checkboxes)*/
+
+.icon-box {
+	width: 50px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid #4B0B9D;
+	border-radius: 25px;
+	background: none;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.5s;
+	font-family: FontAwesome;
+	font-size: 18px;
+}
+
+input[type="checkbox"].add_friend {
+	width: 50px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	border-radius: 25px;
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+input[type="checkbox"].add_friend:checked ~ .icon-box {
+	-webkit-appearance:  none;
+	background: linear-gradient(180deg, #A1B0FF 0%, #FBCBFF 100%);
+}
+
+
+/*grid albums gallery*/
+.container {
+	padding: 0;
+	height: 50vh;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+
+.albums-gallery {
+	max-width: 1200;
+	margin: 20px 0;
+	margin-bottom: 50px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 20px;
+
+}
+
+.one-album-item {
+	border-radius: 7px;
+	overflow: hidden;
+	box-shadow: 0 2px 5px rgba(7, 49, 112, 0.1);
+	text-align: center;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
+	background-color: #fff;
+}
+
+.one-album-item-img {
+	height: 150px;
+	background-size: cover;
+	background-position: center;
+}
+
+@media(max-width: 300px) {
+	.albums-gallery {
+		grid-template-columns: 1fr;
+	}
+}
+
+/*settings*/
+
+            .media-left {
+                float: left;
+                width: 40px;
+                height: 40px;
+                Vertical align: center;
+                line-height: 70px;
+                margin-left: 10px;
+            }
+            div.media-unread {
+                height: 70;
+                border: 2px solid #0B469D;
+                border-radius: 7px;
+                background-color: rgba(161, 176, 255, 0.5);
+                margin-top: 18px;
+            }
+
+            div.media-read {
+                height: 70;
+                border: 2px solid #0B469D;
+                border-radius: 7px;
+                background-color: #F6F8FF;
+                margin: 18px;
+            }
+
+            .media-heading title {
+                font-style: SemiBold;
+                font-size: 18px;
+                line-height: 22px;
+                Align: Left;
+                Vertical align: Top;
+            }
+            .media-body {
+                margin-left: 60px;
+            }
+            .media-content {
+                Font-size: 15px;
+            }
+            .comments-list {
+                overflow: scroll;
+                height: 300px;
+                background-image: linear-gradient(135deg, #FEFFFA, #F6E6E5
+);
+            }
+
+            .comments-list::-webkit-scrollbar {
+				width: 0;
+			}
+
+            .page-header {
+                text-style: header 3;
+                font-style: Bold;
+                align: Center;
+                vertical-align: Center;
+                letter-spacing: -0.37%;
+                margin-top: 30px;
+            }
+
+.setting-header {
+                text-style: header 3;
+                font-style: Bold;
+                align: Center;
+                vertical-align: Center;
+                letter-spacing: -0.37%;
+                margin-top: 30px;
+                font-size
+}
+
+div.listcategory {
+	background-color: rgba(248, 234, 255, 1);
+	margin-top: 5px;
+	padding: 10px;
+	-webkit-box-shadow: 0 10px 30px rgba(0,0,0,.3);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  	-moz-box-shadow: 0 10px 30px rgba(0,0,0,.3);  /* Firefox 3.5 - 3.6 */
+  	box-shadow: 0 10px 30px rgba(0,0,0,.3);
+}
+
+div.listcategory .col-sm-4 {
+	border-right: 1px solid #ccc;
+}
+
+.group-body, .friend-body {
+	margin: 10px;
+}
+
+div.group-public {
+                height: 70;
+                border: 2px solid #0B469D;
+                border-radius: 7px;
+                background-color: rgba(244, 255, 211, 1);
+                margin: 18px;
+            }
+
+div.group-private {
+                height: 70;
+                border: 2px solid #0B469D;
+                border-radius: 7px;
+                background-color: rgba(255, 236, 199, 1);
+                margin: 18px;
+            }
+
+.friendsgroupimg {
+	margin: 10px;
+}
+
+div.friend {
+                height: 70;
+                border: 2px solid #0B469D;
+                border-radius: 7px;
+                background-color: rgba(246, 248, 255, 1);
+                margin: 18px;
+            }
+
+        body {
+            color: #073170;
+            background-image: url("sitebg4.svg");
+        }
+
+        .container-fluid {
+            margin-right: auto;
+            margin-left: auto;
+            width: 95%;
+            margin: 20px;
+            margin-left: 5px;
+            padding-bottom: 30px;
+            border-radius: 15px;
+        }
+
+        .settings-window {
+            display: flex;
+            justify-content: center;
+        }
+
+        img {
+            Vertical-align: center;
+            Horizontal-align: center;
+        }
+
+        a.picture img{
+            width: 200px;
+            margin-top: 19px;
+        }
+
+        .main-logo img{
+            height: 70px;
+            margin-top: 37px;
+        }
+
+        .Names-background {
+            background-image: url("objects/NameRectangle.png");
+            background-size: cover;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        button {
+              background: 0;
+              border-width: 0px;
+        }
+
+        .back_button {
+            alt: Back;
+            width: 17.5px;
+            hzeight: 18.08px;
+            vertical-align: middle;
+        }
+
+        h1 {
+
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        h2 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .delete {
+            font-size: 10px;
+            font-weight: bold;
+            color: white;
+            height: 20px;
+            width: 100px;
+            background-color: #073170;
+            border-radius: 20px;
+        }
+
+        .page-header {
+            text-style: header 3;
+            margin-top: 10px;
+            align: Center;
+            vertical-align: Center;
+            letter-spacing: -0.37%;
+        }
+
+        .slidecontainer {
+          width: 100%;
+        }
+
+        .slider {
+          -webkit-appearance: none;
+          width: 100%;
+          height: 10px;
+          border-radius: 5px;
+          background: #d3d3d3;
+          outline: none;
+          opacity: 0.7;
+          -webkit-transition: .2s;
+          transition: opacity .2s;
+        }
+
+        .slider:hover {
+          opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 23px;
+          height: 24px;
+          background: linear-gradient(180deg, #A1B0FF 0%, #FBCBFF 100%);
+          border: 1px solid #4B0B9D;
+          border-radius: 20px;
+          box-sizing: border-box;
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          cursor: pointer;
+        }
+
+        label.pref-box {
+          display: block;
+          position: relative;
+          padding-left: 30px;
+          margin-top: 10px;
+          cursor: pointer;
+          font-size: 15px;
+          font-weight: 500;
+          width: 274px;
+          height: 17px;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          max-width: 700px;
+		  width: 100%;
+		  padding: 20px 30px;
+		  border-radius: 5px;
+
+        }
+
+        label.pref-box input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+        }
+
+        .checkmark {
+          position: absolute;
+          top: 20px;
+          left: 0;
+          height: 20px;
+          width: 20px;
+          background-color: #073170;
+          border-radius: 50%;
+        }
+
+        label.pref-box:hover input ~ .checkmark {
+          background-color: #A1B0FF;
+        }
+
+        label.pref-box input:checked ~ .checkmark {
+          background-color: #4B0B9D;
+        }
+
+        .checkmark:after {
+          content: "";
+          position: absolute;
+          display: none;
+        }
+
+        label.pref-box input:checked ~ .checkmark:after {
+          display: block;
+        }
+
+        label.pref-box .checkmark:after {
+            top: 6px;
+            left: 6px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+        }
+
+                    .media-left {
+                float: left;
+                width: 40px;
+                height: 40px;
+                Vertical-align: center;
+                line-height: 55px;
+                margin-left: 10px;
+            }
+
+            .media-right-green {
+                float: right;
+                width: 38px;
+                height: 38px;
+                margin-right: 20px;
+                margin-top: -32px;
+                background-image: url("objects/public paw green.png")
+            }
+
+            .media-right-orange {
+                float: right;
+                width: 36px;
+                height: 36px;
+                margin-right: 20px;
+                margin-top: -32px;
+                background-image: url("objects/public paw orange.png")
+            }
+
+            div.friend-card {
+                height: 70px;
+                border: 2px solid #0B469D;
+                border-radius: 7px;
+                background-color: #F6F8FF;
+                margin: 18px;
+                type: button;
+            }
+
+            .friend-heading.title {
+                font-style: Bold;
+                font-size: 23px;
+                Align: Left;
+                margin: 4px;
+                margin-left: 100px;
+                margin-top: 15px;
+            }
+            .media-body {
+                margin-left: 60px;
+            }
+            .media-content {
+                Font-size: 15px;
+            }
+            .friends-list {
+                overflow: hidden;
+                overflow-y: scroll;
+                height: 261px;
+            }
+
+.flow {
+    overflow: scroll;
+    height: 420px;
+}
+
+form input[type="radio"] {
+	display: none;
+}
+
+#settings {
+	padding: 30px;
+	padding-bottom: 90px;
+}
+
+p.map-radius {
+	font-size: 15px;
+}

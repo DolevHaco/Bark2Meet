@@ -1,0 +1,221 @@
+{% extends "nav_bar.html" %}
+{% block content %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>My profile</title>
+<link rel="shortcut icon" href="{{url_for('static', filename='smallpaw.svg')}}" />
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='my_profile.css') }}">
+
+<div class="event-form-box">
+
+    <div class="row justify-content-center">
+        <div class="col-xs-2"><img src="../static/smallpaw.svg" class="smallpaw"></div>
+        <div class="col-xs-10 title"><span>My Profile</span></div>
+    </div>
+
+    <div class="profile-titles">
+        {% if user.user_img != "static/default-account-img.png"%}
+        <img class="owner-pic" src="../{{user.user_img[10:]}}">
+        {% else %}
+        <img class="owner-pic" src="../{{user.user_img}}">
+        {% endif %}
+
+        {% if user.dog_img != "static/default-account-img.png"%}
+        <img class="dog-pic" src="../{{user.dog_img[10:]}}">
+        {% else %}
+        <img class="dog-pic" src="../{{user.dog_img}}">
+        {% endif %}
+
+        <div class="names">
+            <span class="owner-name">{{user.full_name.rsplit(' ', 1)[0]}}</span>
+            <span> & </span>
+            <span class="dog-name">{{user.dog_name}}</span>
+        </div>
+    </div>
+
+    <div class="row justify-content-center info-box">
+        <div class="column-md-12 info-owner">
+            {% if user.gender == 1 %}
+            <span>Male</span><br>
+            {% endif %}
+            {% if user.gender == 0 %}
+            <span>Female</span><br>
+            {% endif %}
+            {% if user.gender == 3 %}
+            <span>Unidentified</span><br>
+            {% endif %}
+            <span>{{age}} Years Old</span>
+        </div>
+        <div class="column-md-12 info-dog">
+            {% if user.dog_gender == 1 %}
+            <span>Male</span><br>
+            {% endif %}
+            {% if user.dog_gender == 0 %}
+            <span>Female</span><br>
+            {% endif %}
+            <span>{{user.dog_age.rsplit('.', 1)[0]}} Years Old</span><br>
+            <span>{{user.dog_breed}}</span><br>
+        </div>
+
+    </div>
+
+    <!-- My profile section bar -->
+    <div class="nav middle_nav">
+        <button class="nav__link_middle" onclick="openPage('settings', this)" id="defaultOpen">
+            <i class="fas fa-cog nav__icon" aria-hidden="true"></i>
+        </button>
+        <button class="nav__link_middle" onclick="openPage('albums', this)">
+            <i class="far fa-images nav__icon current" aria-hidden="true"></i>
+        </button>
+        <a href="{{ url_for('logout') }}" class="nav__link_middle">
+            <i class="fas fa-sign-out-alt nav__icon" aria-hidden="true"></i>
+            <span class="nav__text">Log Out</span>
+        </a>
+        <i class=""></i>
+    </div>
+
+    <!-- Albums -->
+    <div id="albums" class='container'>
+        <section class="albums-gallery">
+            No Albums Yet!
+            <!-- album 2 -->
+            <!-- Links to inner album page with 8 pictures -->
+            <!--            <a href="inside_album.html">-->
+            <!--                <div class="one-album-item">-->
+            <!--                    <div style="background-image: url('../static/6.jpg');" class="one-album-item-img"></div>-->
+            <!--                    <p><strong>Gan Saker, Birthday walk</strong></p>-->
+            <!--                    <p>8 pictures</p>-->
+            <!--                </div>-->
+            <!--            </a>-->
+
+
+        </section>
+    </div>
+
+    <!-- settings -->
+    <div id="settings" class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-6 d-inline float-left">
+                <div class="page-header">
+                    <h1>Map:</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-sm-6 d-inline float-left">
+                <div class="page-header">
+                    <h2>Radius of view on map:</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-sm-6 d-inline float-left">
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="10" value={{user.radius_view / 1000}} class="slider" id="myRange">
+                    <p class="map-radius">Radius By KM: <span id="demo"></span></p>
+                </div>
+                <script>
+                    var slider = document.getElementById("myRange");
+                    var output = document.getElementById("demo");
+                    output.innerHTML = slider.value;
+
+                    slider.oninput = function () {
+                        output.innerHTML = this.value;
+                    }
+
+                    slider.onchange = () => {
+                        const URL = '/api/update_radius';
+                        const xhr = new XMLHttpRequest();
+                        let sender = JSON.stringify(slider.value);
+                        xhr.open("POST", URL);
+                        xhr.send(sender);
+                    }
+                </script>
+            </div>
+        </div>
+
+        {#<div class="row justify-content-center">
+            <div class="col-sm-6 d-inline float-left">
+                <div class="page-header">
+                    <h1>Notifications:</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-sm-6 d-inline float-left">
+                <div class="page-header">
+                    <h2>Notify a walk started by:</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-sm-6 d-inline float-left">
+                <label class="pref-box"> My friends only
+                    <input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="pref-box"> New walkers around, My friends
+                    <input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="pref-box"> Mute all notifications
+                    <input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+        <br>
+        <br>
+
+
+
+        <div class="row justify-content-center">
+            <div class="col-sm-6 d-inline float-left">
+                <button class="delete">Delete Account</button>
+            </div>
+        </div>#}
+    </div>
+</div>
+
+<script type="text/javascript">
+    function openPage(pageName, elmnt) {
+        // Hide all elements with class="tabcontent" by default */
+        var i, container, tablinks;
+        container = document.getElementsByClassName("container");
+        for (i = 0; i < container.length; i++) {
+            container[i].style.display = "none";
+        }
+
+        // Remove the background color of all tablinks/buttons
+        tablinks = document.getElementsByClassName("nav__link_middle");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "#F8EAFF";
+        }
+
+        // Show the specific tab content
+        document.getElementById(pageName).style.display = "block";
+
+        // Add the specific color to the button used to open the tab content
+        elmnt.style.backgroundColor = "#F4DEFF";
+        linkIcon = elmnt.getElementsByClassName("nav__icon");
+        linkIcon.style.color = "#FFF";
+    }
+
+
+    // Get the element with id="defaultOpen" and click on it
+    $(document).ready(function () {
+        $('[id="defaultOpen"]').trigger("click")
+    })
+    // const a = document.getElementById("defaultOpen");
+    // console.log(a, "a")
+
+</script>
+
+{% endblock content %}

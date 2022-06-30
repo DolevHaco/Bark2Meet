@@ -1,0 +1,142 @@
+{% extends "nav_bar.html" %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='notifications-style.css') }}">
+
+
+</head>
+<div class="event-form-box">
+    <div class="row justify-content-center">
+        <div class="col-xs-2"><img src="../static/smallpaw.svg" class="smallpaw"></div>
+        <div class="col-xs-10 title"><span>Notifications</span></div>
+    </div>
+    <br>
+
+    {% if new_notifications %}
+
+    <h3>New</h3>
+    {% endif %}
+
+    {% for notification in new_notifications %}
+    <div class="notifi-item3">
+        {% if notification['image'] != "static/default-account-img.png" %}
+        <img src="../{{notification['image'][10:]}}" alt="..." />
+        {% else %}
+        <img src="../{{notification['image']}}" alt="..." />
+        {% endif %}
+
+        <div class="text">
+            <h4>{{notification.title}}</h4>
+            <p>{{notification.msg}}</p>
+            <div class="clock">{{notification.issue_time}}</div>
+        </div>
+        {% if notification["needApproval"] == True %}
+        &nbsp;<div class="buttons">
+            <span class="allow-btn">
+                {% if notification["type"] == 2 %}
+                <!-- so NEW_INVITE -->
+                <button id="allow-btn" onClick="acceptInvite(true, '{{notification['from']}}', this)">Allow</button>
+                {% endif %}
+                {% if notification["type"] == 3 %}
+                <!-- so NEW_FRIEND_REQUEST -->
+                <button id="allow-btn" onClick="acceptFriend(true, '{{notification['from']}}', this)">Allow</button>
+                {% endif %}
+            </span>
+            &nbsp;&nbsp;<span class="Deny-btn">
+                {% if notification["type"] == 2 %}
+                <!-- so NEW_INVITE -->
+                <button id="Deny-btn" onClick="acceptInvite(false, '{{notification['from']}}', this)">Deny</button>
+                {% endif %}
+                {% if notification["type"] == 3 %}
+                <!-- so NEW_FRIEND_REQUEST -->
+                <button id="Deny-btn" onClick="acceptFriend(false, '{{notification['from']}}', this)">Deny</button>
+                {% endif %}
+
+            </span>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    <h3>Earlier</h3>
+    {% for notification in old_notifications %}
+    <div class="notifi-item">
+        {% if notification['image'] != "static/default-account-img.png" %}
+        <img src="../{{notification['image'][10:]}}" alt="..." />
+        {% else %}
+        <img src="../{{notification['image']}}" alt="..." />
+        {% endif %}
+        <div class="text">
+            <h4>{{notification.title}}</h4>
+            <p>{{notification.msg}}</p>
+            <div class="clock">{{notification.issue_time}}</div>
+        </div>
+        {% if notification["needApproval"] == True %}
+        &nbsp;<div class="buttons">
+            <span class="allow-btn">
+                {% if notification["type"] == 2 %}
+                <!-- so NEW_INVITE -->
+                <button id="allow-btn" onClick="acceptInvite(true, '{{notification['from']}}', this)">Allow</button>
+                {% endif %}
+                {% if notification["type"] == 3 %}
+                <!-- so NEW_FRIEND_REQUEST -->
+                <button id="allow-btn" onClick="acceptFriend(true, '{{notification['from']}}', this)">Allow</button>
+                {% endif %}
+            </span>
+            &nbsp;&nbsp;<span class="Deny-btn">
+                {% if notification["type"] == 2 %}
+                <!-- so NEW_INVITE -->
+                <button id="Deny-btn" onClick="acceptInvite(false, '{{notification['from']}}', this)">Deny</button>
+                {% endif %}
+                {% if notification["type"] == 3 %}
+                <!-- so NEW_FRIEND_REQUEST -->
+                <button id="Deny-btn" onClick="acceptFriend(false, '{{notification['from']}}', this)">Deny</button>
+                {% endif %}
+
+            </span>
+        </div>
+        {% endif %}
+
+
+    </div>
+    {% endfor %}
+
+
+    <script>
+
+        if (localStorage.getItem("newNotification") == "true") {
+            localStorage.setItem("newNotification", false);
+        }
+
+        function acceptInvite(shouldAccept, requester, btn) {
+            const URL = '/event_invite_approve';
+            const xhr = new XMLHttpRequest();
+            let sender = JSON.stringify([shouldAccept, requester]);
+            xhr.open("POST", URL);
+            xhr.send(sender);
+            btn.parentElement.parentElement.style["display"] = 'none';
+            if (shouldAccept) {
+                $("#realtime_porter").trigger("port_event_approve", [requester])
+                btn.parentElement.parentElement.parentElement.style["backgroundColor"] = '#81C639';
+            }
+            else {
+                btn.parentElement.parentElement.parentElement.style["backgroundColor"] = '#FF6666';
+            }
+        }
+        function acceptFriend(shouldAccept, requester, btn) {
+            const URL = '/friend_request_approve';
+            const xhr = new XMLHttpRequest();
+            let sender = JSON.stringify([shouldAccept, requester]);
+            xhr.open("POST", URL);
+            xhr.send(sender);
+            btn.parentElement.parentElement.style["display"] = 'none';
+            if (shouldAccept) {
+                $("#realtime_porter").trigger("port_friend_approve", [requester])
+                btn.parentElement.parentElement.parentElement.style["backgroundColor"] = '#81C639';
+            }
+            else {
+                btn.parentElement.parentElement.parentElement.style["backgroundColor"] = '#FF6666';
+            }
+        }
+    </script>
+
+    {% endblock content %}

@@ -1,0 +1,125 @@
+{% extends "nav_bar.html" %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='friends_invite_list.css') }}">
+
+<div class="event-form-box">
+    <div class="row justify-content-center">
+        <div class="col-xs-2"><img src="../static/smallpaw.svg" class="smallpaw"></div>
+        <div class="col-xs-10 title"><span>Invite some friends</span></div>
+    </div>
+
+    <form method="POST" action="">
+        <div class="event-form">
+            <div class="row justify-content-center">
+                <div class="col-xs-10 align-items-center">
+                    <div class="form">
+                        {{ form.hidden_tag() }}
+                        {{ form.search_filter(class="form-control form-input", placeholder="find a friend...",
+                        type="search") }}
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    {{ form.submit(class="btn-primary write-comment") }}
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class='container'>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sms-send-page">
+                    <ul class="list-group">
+
+                        {% if friends %}
+
+                        {% for friend in friends %}
+
+                        <li class="list-group-item">
+                            <div class="col-xs-4 pull-right">
+                                {% if friend_req[friend.email] %}
+                                <input type="checkbox" value="{{ friend.id }}" name="1"
+                                    onclick="setCheckBoxAsTrue(this)" checked>
+                                {% else %}
+                                <input type="checkbox" value="{{ friend.id }}" name="0"
+                                    onclick="setCheckBoxAsTrue(this)">
+                                {% endif %}
+
+                            </div>
+                            <div class="col-xs-8 pull-left">
+                                {% if friend.user_img != "static/default-account-img.png" %}
+                                <img class="media-left image-placeholder" src="../{{friend.user_img[10:]}}" alt="..." />
+                                {% else %}
+                                <img class="media-left image-placeholder" src="../{{friend.user_img}}" alt="..." />
+                                {% endif %}
+                                <p><strong>{{ friend.full_name }}</strong></p>
+                                {% if friend.is_online %}
+                                <small>Online</small>
+                                {% else %}
+                                <small>Offline</small>
+                                {% endif %}
+
+                            </div>
+                        </li>
+
+                        {% endfor %}
+
+                        {% else %}
+                        <br>
+                        <center>
+                            <div>There are no friends</div>
+                        </center>
+
+                        {% endif %}
+
+                    </ul>
+                    <br>
+                    <center>
+                        <a href="{{ url_for('my_walks') }}" class="btn btn-primary-submit">
+                            Finish
+                        </a>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+
+
+    var checkboxes = document.querySelectorAll("input[type=checkbox]");
+    let allJoinedEventsId = []
+
+    // Use Array.forEach to add an event listener to each checkbox.
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            if (this.checked && checkbox.name !== "1") {
+                sendInfo("/invite_this_friend", checkbox.value);
+                checkbox.name = 1;
+            }
+        })
+    });
+
+    function sendInfo(url, value) {
+        const URL = url;
+        const xhr = new XMLHttpRequest();
+        let sender = JSON.stringify([value, {{ event_id }}]);
+    xhr.open("POST", URL);
+    xhr.send(sender);
+    $("#realtime_porter").trigger("port_event_invite", [parseInt(value)])
+
+    console.log("here", sender)
+    }
+
+    function setCheckBoxAsTrue(checkbox) {
+        checkbox.checked = true;
+    }
+
+</script>
+
+{% endblock content %}

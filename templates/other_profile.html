@@ -1,0 +1,373 @@
+{% extends "nav_bar.html" %}
+{% block content %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Other profile</title>
+<link rel="shortcut icon" href="{{url_for('static', filename='smallpaw.svg')}}" />
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='my_walks.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='other_profile.css') }}">
+
+
+
+<!-- The full yellow card that contains the profile elements & tabs -->
+<div class="event-form-box">
+
+    <!-- Logo & title "Profile" -->
+    <div class="row justify-content-center">
+        <div class="col-xs-2"><img src="../static/smallpaw.svg" class="smallpaw"></div>
+        <div class="col-xs-10 title"><span>Profile</span></div>
+    </div>
+
+    <!-- profile pics & names -->
+    <div class="profile-titles">
+        {% if user.user_img != "static/default-account-img.png"%}
+        <img class="owner-pic" src="../{{user.user_img[10:]}}">
+        {% else %}
+        <img class="owner-pic" src="../{{user.user_img}}">
+        {% endif %}
+
+        {% if user.dog_img != "static/default-account-img.png"%}
+        <img class="dog-pic" src="../{{user.dog_img[10:]}}">
+        {% else %}
+        <img class="dog-pic" src="../{{user.dog_img}}">
+        {% endif %}
+
+        <div class="names">
+            <span class="owner-name">{{user.full_name.rsplit(' ', 1)[0]}}</span>
+            <span> & </span>
+            <span class="dog-name">{{user.dog_name}}</span>
+        </div>
+    </div>
+
+    <!-- profile info details for dog & owner -->
+    <div class="row justify-content-center info-box">
+        <div class="column-md-12 info-owner">
+            {% if user.gender == 1 %}
+            <span>Male</span><br>
+            {% endif %}
+            {% if user.gender == 0 %}
+            <span>Female</span><br>
+            {% endif %}
+            {% if user.gender == 3 %}
+            <span>Unidentified</span><br>
+            {% endif %}
+            <span>{{age}} Years Old</span>
+        </div>
+        <div class="column-md-12 info-dog">
+            {% if user.dog_gender == 1 %}
+            <span>Male</span><br>
+            {% endif %}
+            {% if user.dog_gender == 0 %}
+            <span>Female</span><br>
+            {% endif %}
+            <span>{{user.dog_age.rsplit('.', 1)[0]}} Years Old</span><br>
+            <span>{{user.dog_breed}}</span><br>
+        </div>
+
+    </div>
+
+    <!-- Other profile section bar - tabs menu & add friend -->
+    <!-- Changes made: the walks & albums tags changed from <a> to <button> -->
+    <div class="nav middle_nav">
+
+        <!-- the button for the 'walks' list tab -->
+        <button id="defaultOpen" class="nav__link_middle" onclick="openPage('walks', this)">
+            <i class="fas fa-shoe-prints nav__icon" aria-hidden="true"></i>
+        </button>
+
+        <!-- the button for the 'albums' list tab -->
+        <button class="nav__link_middle" onclick="openPage('albums', this)">
+            <i class="far fa-images nav__icon" aria-hidden="true"></i>
+        </button>
+
+        <!-- Add friend checkbox wrapper -->
+
+        <div class="nav__link_middle">
+
+            {% if is_friend == False %}
+            {% if is_send_friend_req == True %}
+            <!-- If a friend request has been sent -->
+            <button class="add_friend sent">
+                <i class="fas fa-user-clock" aria-hidden="true"></i>
+            </button>
+            {% else %}
+            <button class="add_friend" onclick="addAsFriend(this)">
+                <i class="fas fa-user-plus" aria-hidden="true"></i>
+            </button>
+            {% endif %}
+
+            <!-- If a friend request has been sent -->
+            <button class="add_friend sent" style="display: none;" id="changeToAfterRequest">
+                <i class="fas fa-user-clock" aria-hidden="true"></i>
+            </button>
+
+            {% endif %}
+
+            {% if is_friend == True %}
+            <button class="add_friend approved">
+                <i class="fas fa-user-check" aria-hidden="true"></i>
+            </button>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <!-- walks -->
+    <div id="walks" class='container'>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sms-send-page">
+                    <ul class="list-group">
+                        {% for event in future_events %}
+                        {% if is_friend == True %}
+                        {% if event['privacy'] == "orange" %}
+
+                        <li class="list-group-item">
+                            <div class="col-xs-4 pull-right">
+                                {% if current_user.email in event['joined'] %}
+                                <!-- Leave a private walk button -->
+                                <input type="checkbox" class='orange' name="joinBtn" value={{ event['id'] }} checked>
+
+                                {% else %}
+
+                                <input type="checkbox" name="joinBtn" value={{ event['id'] }} class='orange'>
+
+                                {% endif %}
+                            </div>
+
+                            <a href="{{ url_for('event_details', id=event['id']) }}">
+                                <div class="col-xs-8 pull-left">
+                                    <p class="walk-name"><strong>{{event.title}}</strong></p>
+                                    <div class="profile-pics">
+
+                                        {% if event['users_images'][0] %}
+                                        {% if user.user_img != "static/default-account-img.png"%}
+                                        <img class="head" src="../{{event['users_images'][0][10:]}}">
+                                        {% else %}
+                                        <img class="head" src="../{{event['users_images'][0]}}">
+                                        {% endif %}
+                                        {% endif %}
+                                        {% if event['users_images'][1] %}
+                                        {% if user.user_img != "static/default-account-img.png"%}
+                                        <img class="mid" src="../{{event['users_images'][1][10:]}}">
+                                        {% else %}
+                                        <img class="mid" src="../{{event['users_images'][1]}}">
+                                        {% endif %}
+                                        {% endif %}
+                                        {% if event['users_images'][2] %}
+                                        {% if user.user_img != "static/default-account-img.png"%}
+                                        <img class="tail" src="../{{event['users_images'][2][10:]}}">
+                                        {% else %}
+                                        <img class="tail" src="../{{event['users_images'][2]}}">
+                                        {% endif %}
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        {% endif %}
+                        {% endif %}
+                        {% if event['privacy'] == "green" %}
+
+                        <li class="list-group-item">
+
+                            <div class="col-xs-4 pull-right">
+                                {% if current_user.email in event['joined'] %}
+                                <!-- Leave a public walk button -->
+                                <input type="checkbox" class='green' name="joinBtn" value={{ event['id'] }} checked>
+
+                                {% else %}
+
+                                <input type="checkbox" class='green' name="joinBtn" value={{ event['id'] }}>
+
+                                {% endif %}
+                            </div>
+                            <a href="{{ url_for('event_details', id=event['id']) }}">
+                                <div class="col-xs-8 pull-left">
+                                    <p class="walk-name"><strong>{{event.title}}</strong></p>
+                                    <div class="profile-pics">
+
+                                        {% if event['users_images'][0] %}
+                                        {% if user.user_img != "static/default-account-img.png"%}
+                                        <img class="head" src="../{{event['users_images'][0][10:]}}">
+                                        {% else %}
+                                        <img class="head" src="../{{event['users_images'][0]}}">
+                                        {% endif %}
+                                        {% endif %}
+                                        {% if event['users_images'][1] %}
+                                        {% if user.user_img != "static/default-account-img.png"%}
+                                        <img class="mid" src="../{{event['users_images'][1][10:]}}">
+                                        {% else %}
+                                        <img class="mid" src="../{{event['users_images'][1]}}">
+                                        {% endif %}
+                                        {% endif %}
+                                        {% if event['users_images'][2] %}
+                                        {% if user.user_img != "static/default-account-img.png"%}
+                                        <img class="tail" src="../{{event['users_images'][2][10:]}}">
+                                        {% else %}
+                                        <img class="tail" src="../{{event['users_images'][2]}}">
+                                        {% endif %}
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Albums -->
+    <!-- Opens when the albums link is touched/pressed, on the middle nav bar -->
+    <!-- albums gallery container - each <a> is suppposed to be linked to the inner page of the album it wraps -->
+    <!-- inside each <a> there is a <div> with class 'one-album-item', that contains
+    a picture from the album <div> + name <p> + number of pictures the album contains <p> -->
+
+    <div id="albums" class='container'>
+        <section class="albums-gallery">
+            No Albums Yet!
+            <!-- album 1 -->
+            <!-- This is an album for cruella's walk event - optional -->
+            <!-- <a href="inside_album.html">
+                    <div class="one-album-item">
+                        <div style="background-image: url('../static/cruella.jpg');"class="one-album-item-img"></div>
+                        <p><strong>Hyde Park, Tue' morning</strong></p>
+                        <p>8 pictures</p>
+                    </div>
+                </a> -->
+
+            <!-- album 2 -->
+            <!-- Links to inner album page with 8 pictures -->
+            <!--            <a href="inside_album.html">-->
+            <!--                <div class="one-album-item">-->
+            <!--                    <div style="background-image: url('../static/6.jpg');" class="one-album-item-img"></div>-->
+            <!--                    <p><strong>Gan Saker, Birthday walk</strong></p>-->
+            <!--                    <p>8 pictures</p>-->
+            <!--                </div>-->
+            <!--            </a>-->
+
+            <!--            &lt;!&ndash; album 3 &ndash;&gt;-->
+            <!--            <a href="#">-->
+            <!--                <div class="one-album-item">-->
+            <!--                    <div style="background-image: url('../static/4.jpg');" class="one-album-item-img"></div>-->
+            <!--                    <p><strong>I&S dogs walk, Rahavia</strong></p>-->
+            <!--                    <p>12 pictures</p>-->
+            <!--                </div>-->
+            <!--            </a>-->
+
+            <!--            &lt;!&ndash; album 4 &ndash;&gt;-->
+            <!--            <a href="#">-->
+            <!--                <div class="one-album-item">-->
+            <!--                    <div style="background-image: url('../static/7.jpg');" class="one-album-item-img"></div>-->
+            <!--                    <p><strong>Rehavia, Morning</strong></p>-->
+            <!--                    <p>23 pictures</p>-->
+            <!--                </div>-->
+            <!--            </a>-->
+
+            <!--            &lt;!&ndash; album 5 &ndash;&gt;-->
+            <!--            <a href="#">-->
+            <!--                <div class="one-album-item">-->
+            <!--                    <div style="background-image: url('../static/3.jpg');" class="one-album-item-img"></div>-->
+            <!--                    <p><strong>Gan Saker Evening</strong></p>-->
+            <!--                    <p>15 pictures</p>-->
+            <!--                </div>-->
+            <!--            </a>-->
+
+            <!--            &lt;!&ndash; album 6 &ndash;&gt;-->
+            <!--            <a href="#">-->
+            <!--                <div class="one-album-item">-->
+            <!--                    <div style="background-image: url('../static/5.jpg');" class="one-album-item-img"></div>-->
+            <!--                    <p><strong>Sat', Gan Saker</strong></p>-->
+            <!--                    <p>45 pictures</p>-->
+            <!--                </div>-->
+            <!--            </a>-->
+
+        </section>
+    </div>
+</div>
+
+<script>
+    var checkboxes = document.querySelectorAll("input[name=joinBtn]");
+    let allJoinedEventsId = []
+
+    // Use Array.forEach to add an event listener to each checkbox.
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+
+            if (this.checked) {
+                sendInfo("/join_to_event", checkbox.value);
+                $("#realtime_porter").trigger("port_event_join", [{{ user.id }}])
+    }
+            else {
+            sendInfo("/exit_from_event", checkbox.value);
+            }
+        })
+
+    });
+
+    function sendInfo(url, value) {
+        const URL = url;
+        const xhr = new XMLHttpRequest();
+        let sender = JSON.stringify(value);
+        xhr.open("POST", URL);
+        xhr.send(sender);
+    }
+
+
+
+    function addAsFriend(element) {
+        const URL = '/send_friend_request';
+        let sender = JSON.stringify([{{ user.id }}]);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", URL);
+    xhr.send(sender);
+    $("#realtime_porter").trigger("port_friend_request", [{{ user.id }}])
+    element.style['display'] = 'none'
+    afterRequest = document.getElementById('changeToAfterRequest')
+    afterRequest.style['display'] = 'block'
+    }
+
+</script>
+
+<!-- A Java Script function to activate albums / walks as tabs on the profile -->
+<script type="text/javascript">
+    function openPage(pageName, elmnt) {
+        // Hide all elements with class="container" by default */
+        var i, container, tablinks;
+        container = document.getElementsByClassName("container");
+        for (i = 0; i < container.length; i++) {
+            container[i].style.display = "none";
+        }
+
+        // Reset the background color of all tablinks/buttons
+        tablinks = document.getElementsByClassName("nav__link_middle");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "#F8EAFF";
+        }
+
+        // Show the specific tab content
+        document.getElementById(pageName).style.display = "block";
+
+        // Add the specific color to the button used to open the tab content
+        elmnt.style.backgroundColor = "#F4DEFF";
+        linkIcon = elmnt.getElementsByClassName("nav__icon");
+        linkIcon.style.color = "#FFF";
+    }
+
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+
+</script>
+
+
+
+{% endblock content %}
